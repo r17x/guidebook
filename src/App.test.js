@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {wait, render, fireEvent, cleanup} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
 it('renders without crashing', () => {
@@ -10,33 +9,34 @@ it('renders without crashing', () => {
   ReactDOM.unmountComponentAtNode(div);
 });
 
-afterEach(cleanup)
+test('Create new Property',  async () => {
+     const { getByTestId, container} = render(<App/>)
 
-test('Create new Property', async () => {
-    const { getByTestId, container} = render(<App/>)
+     const name = getByTestId('name')
+     const address = getByTestId('address')
+     const submitButton = getByTestId('submitProperty')
+     const listProperty = getByTestId('listProperty') 
 
-    const name = getByTestId('name')
-    const address = getByTestId('address')
-    const submitButton = getByTestId('submitProperty')
-    const listProperty = getByTestId('listProperty') 
+     fireEvent.change(name, {target: {value: 'My Property'}})
+     fireEvent.change(address, {target: {value: 'Address'}})
+     
+     expect(name.value).toBe('My Property')
+     expect(address.value).toBe('Address')
 
-    fireEvent.change(name, {target: {value: 'My Property'}})
-    fireEvent.change(address, {target: {value: 'Address'}})
-    
-    expect(name.value).toBe('My Property')
-    expect(address.value).toBe('Address')
+     fireEvent.click(submitButton)
 
-    fireEvent.click(submitButton)
+     expect(container).toContainElement(listProperty)
+     await wait(() => {
+        expect(listProperty).toHaveTextContent(/My Property/i)
+        expect(listProperty).toHaveTextContent(/Address/i)
+     }) 
 
-    expect(container).toContainElement(listProperty)
-    expect(listProperty).toHaveTextContent(/My Property/i)
-    expect(listProperty).toHaveTextContent(/Address/i)
+    }
+)
 
-})
-
-test('Create new aminities', async () => {
-    const { getByTestId, container  } = render(<App/>)
-
-    const title = getByTestId('title')
-    expect(title).toHaveTextContent('Create New Aminities')
-})
+// test('Create new aminities', async () => {
+//     const { getByTestId } = render(<App/>)
+// 
+//     const title = getByTestId('title')
+//     expect(title).toHaveTextContent('Create New Aminities')
+// })

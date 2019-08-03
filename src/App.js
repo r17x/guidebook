@@ -1,56 +1,45 @@
 import React from 'react';
-import './App.css';
+import AppDrawer from './AppDrawer.js'
+import {StateProvider, useGlobalState } from '@evilfactory/global-state'
+import FormProperty from 'components/FormProperty'
+import ListProperty from 'components/ListProperty'
 
-
-function FormProperty({onSubmit}){
-    const [data, setData] = React.useState({
-        name: '',
-        address: '',
-        aminities: [],
-    })
-
-    const handleChange = (key) => e => setData({
-        ...data,
-        [key]: e.currentTarget.value
-    })
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        onSubmit && onSubmit(data) 
+const AppReducer = (state, action) => {
+    switch(action.type){
+        case 'ADD_PROPERTY': return {
+            ...state,
+            property: [
+                ...state.property,
+                action.property 
+            ]
+        } 
+        default: return state
     }
-    
-    return (
-            <form onSubmit={handleSubmit}>
-                <input value={data.name} onChange={handleChange('name')} type="text" data-testid="name" />
-                <input value={data.address} onChange={handleChange("address")}type="text" data-testid="address"/>
-                <input type="submit" data-testid="submitProperty" />
-            </form>
-    )
 }
 
-function App() {
-  const [data, setData] = React.useState([])
+const initialState = {
+    property: [],
+}
+const AppChild = () => {
+    function actionNewProperty(state,action, property){
+        return action({
+            type: 'ADD_PROPERTY',
+            property,
+        }) 
+    }
+   const [{property: data}, createNewProperty] = useGlobalState(actionNewProperty)
+   return (
+        <AppDrawer>
+            <FormProperty data-testid="formProperty" onSubmit={createNewProperty}/>
+            <ListProperty  data={data}/>
+        </AppDrawer>
+   )
+}
 
-  const createNewProperty = (newProperty) => {
-        setData([
-            ...data,
-            newProperty,
-        ])
-
-  }
-
+export default function App() {
   return (
-    <div className="App">
-        <header className="App-header">
-            <FormProperty onSubmit={createNewProperty}/>
-            <ul data-testid="listProperty">
-                {data.map((item,index) => (
-                    <li key={index}>{item.name}-{item.address}</li> 
-                ))}
-            </ul>
-        </header>
-    </div>
+    <StateProvider initialState={initialState} reducer={AppReducer}>
+        <AppChild/>
+    </StateProvider>
   );
 }
-
-export default App;
