@@ -3,9 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@callstack/react-theme-provider": "3.0.3",
+    "@evilfactory/global-state": "^0.0.1",
+    "atomize": "^1.0.4",
+    "formik": "^1.5.8",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "react-transition-group": "4.2.1",
+    "styled-components": "4.3.2",
+    "yup": "0.27.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -15,7 +22,14 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "globals": {
+      "render": true,
+      "cleanup": true,
+      "fireEvent": true,
+      "waitForElement": true,
+      "wait": true
+    }
   },
   "browserslist": {
     "production": [
