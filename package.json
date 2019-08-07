@@ -20,6 +20,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:ci": "cross-env CI=true react-scripts test --env=jsdom --coverage --verbose",
+    "test:lint": "eslint src/**/*.js",
+    "lint-staged": "lint-staged",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -30,6 +32,28 @@
       "fireEvent": true,
       "waitForElement": true,
       "wait": true
+    },
+    "plugins": [
+      "react",
+      "jest",
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": "warn"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn test:ci --findRelatedTests",
+      "yarn test:lint --fix",
+      "prettier --write",
+      "yarn test:ci --findRelatedTests",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
   },
   "browserslist": {
@@ -48,11 +72,16 @@
     "@testing-library/jest-dom": "4.0.0",
     "@testing-library/react": "8.0.7",
     "@testing-library/react-hooks": "1.1.0",
-    "cross-env": "5.2.0"
+    "cross-env": "5.2.0",
+    "eslint-plugin-jest": "^22.15.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "3.0.2",
+    "lint-staged": "9.2.1"
   },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
+      "!<rootDir>/src/**/*.fixtures.js",
       "!<rootDir>/src/serviceWorker.js",
       "!<rootDir>/node_modules/"
     ]
