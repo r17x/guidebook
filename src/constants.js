@@ -1,4 +1,12 @@
+const {
+  NODE_ENV: env,
+  REACT_APP_NAME: appName,
+  REACT_APP_DESCRIPTION: appDescription,
+} = process.env
+
 export default {
-    isDevelopment: process.env.NODE_ENV === 'development',
-    isProduction: process.env.NODE_ENV === 'production',
+    isDevelopment: env === 'development',
+    isProduction: env === 'production',
+    appName,
+    appDescription,
 }
