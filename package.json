@@ -23,6 +23,11 @@
     "lint-staged": "lint-staged",
     "eject": "react-scripts eject"
   },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
   "eslintConfig": {
     "extends": "react-app",
     "globals": {
