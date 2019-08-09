@@ -6,7 +6,7 @@
     "@callstack/react-theme-provider": "3.0.3",
     "@evilfactory/global-state": "^0.0.1",
     "atomize": "^1.0.4",
-    "babel-jest": "24.7.1",
+    "babel-jest": "24.8.0",
     "formik": "^1.5.8",
     "react": "^16.9.0-rc.0",
     "react-dom": "^16.9.0-rc.0",
