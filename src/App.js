@@ -1,8 +1,8 @@
 import React from "react";
 import AppDrawer from "./AppDrawer.js";
 import { StateProvider, useGlobalState } from "@evilfactory/global-state";
-import { ListProperty, FormProperty, Header } from "components";
-import { Row, Col } from "atomize";
+import { ListProperty, FormProperty, Header, Footer } from "components";
+import { Div, Row, Col } from "atomize";
 
 import AppReducer from "reducer.js";
 import { newProperty } from "actions.js";
@@ -15,7 +15,7 @@ const initialState = {
 const AppChild = () => {
   const [{ property: data }, createNewProperty] = useGlobalState(newProperty);
   return (
-    <>
+    <Div tag="section" h="100vh">
       <Header />
       <AppDrawer>
         <Row>
@@ -26,7 +26,8 @@ const AppChild = () => {
         <FormProperty data-testid="formProperty" onSubmit={createNewProperty} />
         <ListProperty data={data} />
       </AppDrawer>
-    </>
+      <Footer>This is Footer.</Footer>
+    </Div>
   );
 };
 

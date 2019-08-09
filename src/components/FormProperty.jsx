@@ -9,7 +9,7 @@ import { func } from "prop-types";
 import { object, string } from "yup";
 // import FormControl from '@material-ui/core/FormControl';
 import TextBox from "components/templates/TextBox";
-import { Button } from "atomize";
+import { Button, Div } from "atomize";
 
 const initialValue = {
   name: "",
@@ -22,30 +22,33 @@ const validation = object().shape({
 });
 
 const _FormProperty = ({ errors, status, touched, handleSubmit }) => (
-  <Form>
-    <Field
-      data-testid="name"
-      name="name"
-      placeholder="Property Name"
-      label="Name"
-      component={TextBox}
-    />
-    <Field
-      data-testid="address"
-      name="address"
-      label="Address"
-      placeholder="Property Address"
-      component={TextBox}
-    />
-    <Button
-      type="submit"
-      data-testid="submitProperty"
-      m={{ xs: ".5rem", md: "1rem" }}
-      onClick={handleSubmit}
-    >
-      Save
-    </Button>
-  </Form>
+  <Div tag="section" shadow="3" p={"1.5rem"}>
+    <Form>
+      <Field
+        data-testid="name"
+        name="name"
+        placeholder="Property Name"
+        label="Name"
+        component={TextBox}
+      />
+      <Field
+        data-testid="address"
+        name="address"
+        label="Address"
+        placeholder="Property Address"
+        component={TextBox}
+      />
+      <Button
+        block
+        type="submit"
+        data-testid="submitProperty"
+        m={{ xs: ".5rem", md: "1rem" }}
+        onClick={handleSubmit}
+      >
+        Save
+      </Button>
+    </Form>
+  </Div>
 );
 
 export default function FormProperty({ onSubmit }) {
