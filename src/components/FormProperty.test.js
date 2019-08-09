@@ -1,34 +1,34 @@
-import React from 'react'
-import FormProperty from './FormProperty'
+import React from "react";
+import FormProperty from "./FormProperty";
 afterEach(cleanup);
-const handleSubmit = jest.fn() 
+const handleSubmit = jest.fn();
 
-test('Create new Property', async () => {
-    const { getByTestId, container  } = render(<FormProperty onSubmit={handleSubmit}/>)
+test("Create new Property", async () => {
+  const { getByTestId, container } = render(
+    <FormProperty onSubmit={handleSubmit} />
+  );
 
-    const form = container.querySelector('form') 
-    const name = getByTestId('name')
-    const address = getByTestId('address')
-    const submitButton = getByTestId('submitProperty')
+  const form = container.querySelector("form");
+  const name = getByTestId("name");
+  const address = getByTestId("address");
+  const submitButton = getByTestId("submitProperty");
 
-    fireEvent.change(name, {target: {value: 'My Property'}})
-    fireEvent.change(address, {target: {value: 'Address'}})
-    
-    expect(name.value).toBe('My Property')
-    expect(address.value).toBe('Address')
-    expect(container).toContainElement(form)
+  fireEvent.change(name, { target: { value: "My Property" } });
+  fireEvent.change(address, { target: { value: "Address" } });
 
-    fireEvent.submit(form)
+  expect(name.value).toBe("My Property");
+  expect(address.value).toBe("Address");
+  expect(container).toContainElement(form);
 
-    await wait(() => {
-        expect(handleSubmit).toHaveBeenCalledTimes(1)
-    })
+  fireEvent.submit(form);
 
-    fireEvent.click(submitButton)
+  await wait(() => {
+    expect(handleSubmit).toHaveBeenCalledTimes(1);
+  });
 
-    await wait(() => {
-        expect(handleSubmit).toHaveBeenCalledTimes(2)
-    })
+  fireEvent.click(submitButton);
 
-})
-
+  await wait(() => {
+    expect(handleSubmit).toHaveBeenCalledTimes(2);
+  });
+});
