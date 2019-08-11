@@ -1,40 +1,59 @@
-import React from "react";
-import AppDrawer from "./AppDrawer.js";
-import { StateProvider, useGlobalState } from "@evilfactory/global-state";
-import { ListProperty, FormProperty, Header, Footer } from "components";
-import { Div, Row, Col } from "atomize";
+import React from 'react'
+import constants from 'constants.js'
+import { useGlobalState } from '@evilfactory/global-state'
+import { Div, Row, Col, Button } from 'atomize'
+import {
+  SideDrawer,
+  ListProperty,
+  FormProperty,
+  Header,
+  Footer,
+  Container
+} from 'components'
 
-import AppReducer from "reducer.js";
-import { newProperty } from "actions.js";
+import { newProperty, openDrawer, closeDrawer } from 'actions.js'
 
-const initialState = {
-  property: [],
-  drawer: { isOpen: false, children: null, onClose: () => {} }
-};
-
-const AppChild = () => {
-  const [{ property: data }, createNewProperty] = useGlobalState(newProperty);
+export default function App() {
+  const [{ property: data, drawer }, handleDrawer] = useGlobalState(openDrawer)
+  const [, handleClose] = useGlobalState(closeDrawer)
+  const [, onSubmit] = useGlobalState(newProperty)
   return (
     <Div tag="section" h="100vh">
       <Header />
-      <AppDrawer>
-        <Row>
-          {[].map((Cmp, key) => (
-            <Col size={{ md: 6, s: 12 }}>{Cmp}</Col>
-          ))}
+      <SideDrawer {...drawer} />
+      <Container>
+        <Row w="100%" m={{ b: '1rem' }}>
+          <Col overflow="scroll" h="100vh" size={{ md: 4, s: 12 }} p="0">
+            <Button
+              rounded="sm"
+              onClick={() => {
+                handleDrawer({
+                  right: 'unset',
+                  left: 0,
+                  onClose: handleClose,
+                  isOpen: true,
+                  children: FormProperty,
+                  props: { onSubmit }
+                })
+              }}
+              w="100%"
+              m={{ b: '1rem' }}
+              data-testid="addNewProperty"
+            >
+              Add New Property
+            </Button>
+            <ListProperty data={data} />
+          </Col>
+          <Col
+            rounded="sm"
+            bg="black300"
+            h="100vh"
+            size={{ md: 8, s: 12 }}
+            p="0"
+          />
         </Row>
-        <FormProperty data-testid="formProperty" onSubmit={createNewProperty} />
-        <ListProperty data={data} />
-      </AppDrawer>
-      <Footer>This is Footer.</Footer>
+      </Container>
+      <Footer>© {constants.appName} </Footer>
     </Div>
-  );
-};
-
-export default function App() {
-  return (
-    <StateProvider initialState={initialState} reducer={AppReducer}>
-      <AppChild />
-    </StateProvider>
-  );
+  )
 }

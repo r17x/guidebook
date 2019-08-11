@@ -1,28 +1,34 @@
-import React from "react";
+import React from 'react'
 import {
   Formik,
   Field,
   Form
   //     ErrorMessage
-} from "formik";
-import { func } from "prop-types";
-import { object, string } from "yup";
+} from 'formik'
+import { func } from 'prop-types'
+import { object, string } from 'yup'
 // import FormControl from '@material-ui/core/FormControl';
-import TextBox from "components/templates/TextBox";
-import { Button, Div } from "atomize";
+import TextBox from 'components/templates/TextBox'
+import { Button, Div } from 'atomize'
 
 const initialValue = {
-  name: "",
-  address: ""
-};
+  name: '',
+  address: ''
+}
 
 const validation = object().shape({
-  name: string().required("Property Name is Required"),
-  address: string().required("Property Address is Required")
-});
+  name: string().required('Property Name is Required'),
+  address: string().required('Property Address is Required')
+})
 
 const _FormProperty = ({ errors, status, touched, handleSubmit }) => (
-  <Div tag="section" shadow="3" p={"1.5rem"}>
+  <Div
+    tag="section"
+    shadow="2"
+    m={{ b: '1rem' }}
+    border="1px #b9bec8 solid"
+    p={'1.5rem'}
+  >
     <Form>
       <Field
         data-testid="name"
@@ -39,17 +45,16 @@ const _FormProperty = ({ errors, status, touched, handleSubmit }) => (
         component={TextBox}
       />
       <Button
-        block
         type="submit"
         data-testid="submitProperty"
-        m={{ xs: ".5rem", md: "1rem" }}
+        m={{ xs: '.5rem', md: '1rem' }}
         onClick={handleSubmit}
       >
         Save
       </Button>
     </Form>
   </Div>
-);
+)
 
 export default function FormProperty({ onSubmit }) {
   return (
@@ -59,9 +64,9 @@ export default function FormProperty({ onSubmit }) {
       render={_FormProperty}
       onSubmit={onSubmit}
     />
-  );
+  )
 }
 
 FormProperty.propTypes = {
   onSubmit: func.isRequired
-};
+}

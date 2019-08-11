@@ -6,6 +6,7 @@ const Footer = styled(Div)`
   left: 0;
   text-align: center;
   width: 100%;
+  position: relative;
 `;
 
 Footer.defaultProps = {
@@ -14,7 +15,6 @@ Footer.defaultProps = {
   color: "white",
   textColor: "white",
   p: { x: 0, y: "1rem" },
-  position: 'fixed',
 };
 
 export default withTheme(Footer);

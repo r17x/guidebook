@@ -1,33 +1,51 @@
-import React from "react";
-import { array } from "prop-types";
-import { Col, Row, Div, Text, Label, Image } from "atomize";
+import React from 'react'
+import { array } from 'prop-types'
+import { Col, Row, Div, Text, Label } from 'atomize'
 
-export default function CheckboxList({ data, onClick }) {
+export default function ListProperty({ data, onClick }) {
   const renderItem = (item, index) => (
     <Col
-      size={{ md: 3, s: 6 }}
+      cursor="pointer"
+      size={12}
       key={index}
-      onClick={onClick.bind(CheckboxList, item)}
+      onClick={onClick.bind(ListProperty, item)}
+      d="flex"
+      flexDir="column"
+      style={{ padding: 0, margin: '0 0 1rem 0' }}
     >
-      <Div p=".5rem" m=".5rem" shadow="3">
-        <Image src="https://www.fillmurray.com/640/360" />
-        <Text tag="h1" color="black">
+      <Div
+        h="25vh"
+        bg="black400"
+        textColor="white"
+        color="white"
+        bgSize="cover"
+        bgPos="center"
+        w="100%"
+        rounded="sm"
+        m={{ b: '.5rem' }}
+        d="flex"
+        p={'1rem'}
+        flexDir="column"
+        justify="flex-end"
+      >
+        <Text textSize="title" tag="h1">
           {item.name}
         </Text>
-        <Label color="black">{item.address}</Label>
+        <Label>{item.address}</Label>
       </Div>
     </Col>
-  );
+  )
   return (
-    <Row data-testid="listProperty" p={{ xs: ".5rem", md: "1rem" }}>
+    <Row m="0" w="100%" data-testid="listProperty">
       {data.map(renderItem)}
     </Row>
-  );
+  )
 }
 
-CheckboxList.defaultProps = {
-  onClick: Function
-};
-CheckboxList.propTypes = {
+ListProperty.defaultProps = {
+  onClick: () => {}
+}
+
+ListProperty.propTypes = {
   data: array.isRequired
-};
+}
