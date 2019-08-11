@@ -1,7 +1,7 @@
 import React from 'react'
 import constants from 'constants.js'
 import { useGlobalState } from '@evilfactory/global-state'
-import { Div, Row, Col, Button } from 'atomize'
+import { Div, Row, Col, Button, Text } from 'atomize'
 import {
   SideDrawer,
   ListProperty,
@@ -44,13 +44,21 @@ export default function App() {
             </Button>
             <ListProperty data={data} />
           </Col>
-          <Col
-            rounded="sm"
-            bg="black300"
-            h="100vh"
-            size={{ md: 8, s: 12 }}
-            p="0"
-          />
+          <Col size={{ md: 8, s: 12 }}>
+            <Div
+              h="100vh"
+              border="#eee solid 1px"
+              p="1rem"
+              w="100%"
+              tag="section"
+            >
+              <Text tag="h1" textAlign="right" textSize="display1">
+                Property Name
+              </Text>
+              <Text textAlign="right">Property Address</Text>
+              <Div m={{ y: '.5rem' }} w="100%" border="#eee solid 2px" />
+            </Div>
+          </Col>
         </Row>
       </Container>
       <Footer>© {constants.appName} </Footer>
