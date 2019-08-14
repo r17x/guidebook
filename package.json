@@ -5,7 +5,7 @@
   "dependencies": {
     "@callstack/react-theme-provider": "3.0.3",
     "@evilfactory/global-state": "^0.0.1",
-    "atomize": "^1.0.4",
+    "atomize": "^1.0.8",
     "babel-jest": "24.7.1",
     "formik": "^1.5.8",
     "react": "^16.9.0-rc.0",
