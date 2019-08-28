@@ -24,7 +24,7 @@ export default function App() {
       <SideDrawer {...drawer} />
       <Container>
         <Row w="100%" m={{ b: '1rem' }}>
-          <Col size={{ md: 4, s: 12 }} p="0">
+          <Col size={{ md: 4, s: 12 }} p="0" w="100%">
             <Button
               rounded="sm"
               onClick={() => {
@@ -44,11 +44,16 @@ export default function App() {
               <Icon m={{ r: '3px' }} name="Store" size="20px" color="white" />
               Add New Property
             </Button>
-            <Div tag="section" overflow="scroll" h="100vh">
+            <Div
+              tag="section"
+              overflow="scroll"
+              h={{ md: '100vh', s: '30vh' }}
+              w={{ s: '100vw' }}
+            >
               <ListProperty data={data} onClick={() => scrollTo('#guide')} />
             </Div>
           </Col>
-          <Col id="guide" size={{ md: 8, s: 12 }}>
+          <Col id="guide" size={{ md: 8, s: 12 }} w="100%">
             <ListAminities />
           </Col>
         </Row>

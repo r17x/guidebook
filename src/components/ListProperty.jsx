@@ -10,7 +10,7 @@ export default function ListProperty({ data, onClick }) {
       key={index}
       onClick={onClick.bind(ListProperty, item)}
       d="flex"
-      flexDir="column"
+      flexDir={{ md: 'column', s: 'row' }}
       style={{ padding: 0, margin: '0 0 1rem 0' }}
     >
       <Div

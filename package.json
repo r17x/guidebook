@@ -53,7 +53,7 @@
       "yarn test:lint --fix",
       "prettier --write",
       "yarn test:ci --findRelatedTests",
-      "git add ."
+      "git add"
     ]
   },
   "husky": {
