@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render header correctly 1`] = `
+<div>
+  <div
+    class="sc-bdVaJa jJlxnC"
+  >
+    <h1
+      class="sc-iwsKbI eQqwNh"
+      data-testid="logo"
+    >
+      Guidebook
+    </h1>
+  </div>
+</div>
+`;

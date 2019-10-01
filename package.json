@@ -6,11 +6,10 @@
     "@callstack/react-theme-provider": "3.0.3",
     "@evilfactory/global-state": "^0.0.1",
     "atomize": "^1.0.4",
-    "babel-jest": "24.7.1",
     "formik": "^1.5.8",
-    "react": "^16.9.0-rc.0",
-    "react-dom": "^16.9.0-rc.0",
-    "react-scripts": "^3.0.0-next.68",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-scripts": "^3.0.1",
     "react-transition-group": "4.2.1",
     "styled-components": "4.3.2",
     "yup": "0.27.0"
@@ -20,7 +19,14 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:ci": "cross-env CI=true react-scripts test --env=jsdom --coverage --verbose",
+    "test:lint": "eslint src/**/*.js",
+    "lint-staged": "lint-staged",
     "eject": "react-scripts eject"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -30,6 +36,29 @@
       "fireEvent": true,
       "waitForElement": true,
       "wait": true
+    },
+    "plugins": [
+      "react",
+      "jest",
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": "warn",
+      "semi":0
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn test:ci --colors --findRelatedTests",
+      "yarn test:lint --fix",
+      "prettier --write",
+      "yarn test:ci --findRelatedTests",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
   },
   "browserslist": {
@@ -46,13 +75,19 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "4.0.0",
-    "@testing-library/react": "8.0.7",
+    "@testing-library/react": "9.0.2",
     "@testing-library/react-hooks": "1.1.0",
-    "cross-env": "5.2.0"
+    "cross-env": "5.2.0",
+    "eslint-plugin-jest": "^22.15.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "3.0.2",
+    "lint-staged": "9.2.1",
+    "prettier": "^1.18.2"
   },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
+      "!<rootDir>/src/**/*.fixtures.js",
       "!<rootDir>/src/serviceWorker.js",
       "!<rootDir>/node_modules/"
     ]
